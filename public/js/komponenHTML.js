@@ -1,4 +1,13 @@
-export {card, komponenDetailFilm};
+export { updateUICard, updateUIDetails };
+
+function updateUICard( movie ){
+    const pembungkusCard = document.querySelector('.pembungkus-card');
+    let cards = ``;
+    movie.forEach(m => {
+        cards += card(m);
+        pembungkusCard.innerHTML = cards;
+    });
+}
 
 function card(m){
     return `<div class="w-1/2 px-2 mb-5 md:w-1/3 xl:w-1/4">
@@ -13,6 +22,22 @@ function card(m){
             </div>`;
 }
 
+
+function updateUIDetails( detailFilm ){
+    const containerDetailFilm = document.querySelector('.pembungkus-detail-video');
+    containerDetailFilm.classList.add('visible');
+    let htmlDetailFilm = ``;
+    htmlDetailFilm += komponenDetailFilm(detailFilm);
+    containerDetailFilm.innerHTML = htmlDetailFilm;
+    const closeBtn = document.querySelector('.close-btn');
+    setTimeout(() => {
+        containerDetailFilm.firstElementChild.classList.add('animation-active');
+    }, 10);
+    closeBtn.addEventListener('click', function(){
+        containerDetailFilm.classList.remove('visible');
+        containerDetailFilm.firstElementChild.classList.remove('animation-active');
+    });
+}
 
 function komponenDetailFilm(detailFilm){
     return `<div class="container-detail-video bg-white w-[90vw] min-h-[200px] max-h-[75vh] overflow-y-auto py-3 px-4 rounded-md shadow-md no-scrollbar transition-all duration-300 lg:w-[75vw] scale-0 opacity-0">
